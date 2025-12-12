@@ -1,4 +1,3 @@
-// script.js
 const grid = document.getElementById('grid');
 const filterBtns = document.querySelectorAll('.filter-btn');
 
@@ -32,8 +31,6 @@ function renderProducts(filter) {
         card.target = "_blank";
         card.className = 'card';
 
-        // 뱃지 생성 코드 삭제됨
-
         card.innerHTML = `
             <div class="img-box">
                 <img src="${product.img}" alt="${product.title}">
@@ -41,7 +38,7 @@ function renderProducts(filter) {
             <div class="info-box">
                 <span class="cat-tag">${product.categoryKr}</span>
                 <h3>${product.title}</h3>
-                <div class="price">쿠팡에서 확인</div>
+                <div class="price">가격: 쿠팡에서 확인</div>
             </div>
         `;
         grid.appendChild(card);

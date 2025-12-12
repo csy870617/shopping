@@ -6,8 +6,7 @@ const productData = [
         title: "십자가 캘리 말씀 머그컵 (2P 세트)",
         price: 15900, 
         img: "https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/f99c/ca1f3f2bb169e3f1a03a7edfbbe5621417c8d58d46e29777eac62cb43cb5.jpg",
-        link: "https://link.coupang.com/a/ddvRcU",
-        badge: "BEST"
+        link: "https://link.coupang.com/a/ddvRcU"
     },
     {
         id: 2,
@@ -16,8 +15,7 @@ const productData = [
         title: "I Love Jesus 저소음 인테리어 벽시계",
         price: 22800,
         img: "https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/2018/02/12/14/4/7703f93e-f4d4-454d-9e99-8649a86ec9e1.jpg",
-        link: "https://link.coupang.com/a/ddw0XV",
-        badge: "NEW"
+        link: "https://link.coupang.com/a/ddw0XV"
     },
     {
         id: 3,
@@ -44,8 +42,7 @@ const productData = [
         title: "말씀카드 50종 세트 (일어나서 함께가자)",
         price: 8500,
         img: "https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/18457084317777-ce445286-3a76-491b-bace-12cfd2cee422.jpg",
-        link: "https://link.coupang.com/a/ddw6CG",
-        badge: "HOT"
+        link: "https://link.coupang.com/a/ddw6CG"
     },
     {
         id: 6,
@@ -63,8 +60,7 @@ const productData = [
         title: "햇살콩 하나님의 때 묵상 노트",
         price: 12800,
         img: "https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/ea3e/2c6ce7798a6d1e7e5ad3c2e5d5cf6330df2ad28ff14a0899ea3523b1f0ed.jpg",
-        link: "https://link.coupang.com/a/ddw9uM",
-        badge: "MD PICK"
+        link: "https://link.coupang.com/a/ddw9uM"
     },
     {
         id: 8,
@@ -91,8 +87,7 @@ const productData = [
         title: "팀 켈러, 결혼을 말하다",
         price: 16200,
         img: "https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/fd19/6849305d30189a4e8897842be589a986de56737638543678eb345e9bad15.jpg",
-        link: "https://link.coupang.com/a/ddxdkW",
-        badge: "BEST"
+        link: "https://link.coupang.com/a/ddxdkW"
     },
     {
         id: 11,
@@ -110,7 +105,6 @@ const productData = [
         title: "메시지 성경 파스텔 에디션 세트 (전5권)",
         price: 99000,
         img: "https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/e1d8/aaae2e290416f2ff8372e1b99e274e52fc828f8221996a9717bacb45668a.png",
-        link: "https://link.coupang.com/a/ddxiwB",
-        badge: "PREMIUM"
+        link: "https://link.coupang.com/a/ddxiwB"
     }
 ];
