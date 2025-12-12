@@ -65,14 +65,14 @@ async function fetchClickData() {
     }
 }
 
-// [쓰기] 클릭 수 증가
+// [쓰기] 클릭 수 증가 (내부 집계용)
 async function recordClick(productId) {
     const docRef = doc(db, "product_clicks", String(productId));
     
     try {
         await setDoc(docRef, { count: increment(1) }, { merge: true });
         
-        // 클릭 즉시 반영
+        // 클릭 즉시 내부 데이터 반영 (화면 표시는 안 함)
         firebaseClicks[productId] = (firebaseClicks[productId] || 0) + 1;
         
     } catch (error) {
@@ -80,7 +80,7 @@ async function recordClick(productId) {
     }
 }
 
-// 총 클릭수 계산
+// 총 클릭수 계산 (정렬용)
 function getTotalClicks(product) {
     const serverCount = firebaseClicks[product.id] || 0;
     return (product.clickCount || 0) + serverCount;
@@ -94,6 +94,7 @@ function updateGrid() {
         ? [...productData] 
         : productData.filter(item => item.category === currentCategory);
 
+    // 정렬 로직 (인기순은 여전히 작동함)
     switch (currentSort) {
         case 'newest':
             filteredData.sort((a, b) => b.id - a.id);
@@ -122,9 +123,8 @@ function updateGrid() {
         card.target = "_blank";
         card.className = 'card';
         
+        // 클릭 시 집계는 계속 함
         card.addEventListener('click', () => recordClick(product.id));
-
-        const totalClicks = getTotalClicks(product);
 
         card.innerHTML = `
             <div class="img-box">
@@ -137,7 +137,7 @@ function updateGrid() {
                     ${product.price.toLocaleString()}원
                     <br>
                     <span style="font-size:0.75rem; color:#888; font-weight:400;">
-                        관심 ${totalClicks}회 (가격 확인)
+                        정확한 가격은 클릭 후 확인
                     </span>
                 </div>
             </div>
