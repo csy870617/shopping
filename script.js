@@ -8,20 +8,15 @@ renderProducts('all');
 // 필터 버튼 클릭 이벤트
 filterBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
-        // 버튼 스타일 활성화
         filterBtns.forEach(b => b.classList.remove('active'));
         e.target.classList.add('active');
-
-        // 필터링 적용
-        const filterType = e.target.getAttribute('data-filter');
-        renderProducts(filterType);
+        renderProducts(e.target.getAttribute('data-filter'));
     });
 });
 
 function renderProducts(filter) {
-    grid.innerHTML = ''; // 그리드 초기화
+    grid.innerHTML = '';
 
-    // data.js의 productData 변수 사용
     const filteredData = filter === 'all' 
         ? productData 
         : productData.filter(item => item.category === filter);
@@ -37,18 +32,16 @@ function renderProducts(filter) {
         card.target = "_blank";
         card.className = 'card';
 
-        // 뱃지가 있으면 표시, 없으면 빈 문자열
-        const badgeHtml = product.badge ? `<span class="badge">${product.badge}</span>` : '';
+        // 뱃지 생성 코드 삭제됨
 
         card.innerHTML = `
             <div class="img-box">
-                ${badgeHtml}
                 <img src="${product.img}" alt="${product.title}">
             </div>
             <div class="info-box">
                 <span class="cat-tag">${product.categoryKr}</span>
                 <h3>${product.title}</h3>
-                <div class="price">₩${product.price.toLocaleString()}</div>
+                <div class="price">쿠팡에서 확인</div>
             </div>
         `;
         grid.appendChild(card);
