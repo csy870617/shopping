@@ -18,7 +18,6 @@
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    /* 가로 스크롤 방지 (전체 화면) */
     overflow-x: hidden; 
 }
 
@@ -82,7 +81,7 @@ main {
 /* 히어로 섹션 */
 .hero {
     padding: 4rem 5% 1rem;
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
 }
 
 .hero h1 {
@@ -102,13 +101,13 @@ main {
     word-break: keep-all;
 }
 
-/* 필터 버튼 (PC 기본) */
+/* 필터 버튼 */
 .filter-container {
     padding: 0 5%;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
     display: flex;
     gap: 10px;
-    flex-wrap: wrap; /* PC에서는 줄바꿈 허용 */
+    flex-wrap: wrap;
 }
 
 .filter-btn {
@@ -129,6 +128,52 @@ main {
     border-color: #000;
 }
 
+/* 정렬 옵션 (우측 정렬) */
+.options-container {
+    padding: 0 5% 2rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+#sort-select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 8px 32px 8px 16px;
+    border-radius: 50px;
+    border: 1px solid #e0e0e0;
+    background-color: transparent;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #444;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+#sort-select:hover {
+    border-color: #000;
+    color: #000;
+}
+
+/* 정렬 화살표 커스텀 */
+.select-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    width: 8px;
+    height: 5px;
+    background-color: #888;
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
 /* 상품 그리드 */
 .product-grid {
     padding: 0 5% 5rem;
@@ -144,7 +189,6 @@ main {
     flex-direction: column;
 }
 
-/* 카드 이미지 */
 .img-box {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -170,7 +214,6 @@ main {
     transform: translateY(-5px) scale(1.02);
 }
 
-/* 텍스트 정보 */
 .info-box {
     display: flex;
     flex-direction: column;
@@ -215,7 +258,6 @@ footer {
     font-size: 0.8rem;
     color: #666;
     margin-bottom: 10px;
-    line-height: 1.5;
 }
 
 .copyright {
@@ -223,42 +265,27 @@ footer {
     color: #aaa;
 }
 
-/* -------------------------------------------
-   반응형 미디어 쿼리
-   ------------------------------------------- */
-
-/* 태블릿 */
-@media (max-width: 1024px) {
-    .product-grid { gap: 30px 15px; }
-}
-
-/* 모바일 (핵심 수정 구간) */
+/* 모바일 반응형 */
 @media (max-width: 768px) {
     header { padding: 1rem 5%; }
     .hero { padding: 2rem 5% 1rem; margin-bottom: 2rem; }
     
-    /* [수정됨] 필터 버튼 가로 스크롤 적용 */
     .filter-container {
-        flex-wrap: nowrap;     /* 줄바꿈 금지 */
-        overflow-x: auto;      /* 가로 스크롤 허용 */
-        padding-bottom: 10px;  /* 터치 영역 확보 */
-        
-        /* 스크롤바 숨기기 (크롬, 사파리, 엣지) */
-        -ms-overflow-style: none; /* IE, Edge */
-        scrollbar-width: none; /* Firefox */
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
     
-    .filter-container::-webkit-scrollbar {
-        display: none; /* Chrome, Safari */
-    }
-
+    .filter-container::-webkit-scrollbar { display: none; }
+    
     .filter-btn {
-        flex-shrink: 0; /* 버튼이 찌그러지지 않게 고정 */
-        font-size: 0.85rem; /* 모바일에서 폰트 살짝 줄임 */
-        padding: 8px 16px;  /* 패딩 살짝 줄임 */
+        flex-shrink: 0;
+        font-size: 0.85rem;
+        padding: 8px 16px;
     }
 
-    /* 상품 그리드 2열 */
     .product-grid {
         grid-template-columns: repeat(2, 1fr); 
         gap: 24px 12px;
@@ -267,8 +294,4 @@ footer {
     .img-box img { padding: 15px; }
     .info-box h3 { font-size: 0.9rem; }
     .info-box .price { font-size: 0.85rem; }
-}
-
-@media (max-width: 350px) {
-    .product-grid { grid-template-columns: 1fr; }
 }

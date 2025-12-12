@@ -33,6 +33,17 @@
             <button class="filter-btn" data-filter="general">추천! 일반상품</button>
         </div>
 
+        <div class="options-container">
+            <div class="select-wrapper">
+                <select id="sort-select">
+                    <option value="newest" selected>최신순</option>
+                    <option value="popular">인기순</option>
+                    <option value="low-price">낮은가격순</option>
+                    <option value="high-price">높은가격순</option>
+                </select>
+            </div>
+        </div>
+
         <section class="product-grid" id="grid">
             </section>
     </main>
@@ -45,6 +56,7 @@
     </footer>
 
     <script src="data.js"></script>
-    <script src="script.js"></script>
+    
+    <script type="module" src="script.js"></script>
 </body>
 </html>
