@@ -1,130 +1,73 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { 
-    getFirestore, 
-    doc, 
-    setDoc, 
-    increment, 
-    collection, 
-    getDocs 
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-// 사용자 Firebase 키 설정
-const firebaseConfig = {
-    apiKey: "AIzaSyADSJGzYx07lESsaKt_L8NWphUd6FD-cqs",
-    authDomain: "talent-market-93370.firebaseapp.com",
-    projectId: "talent-market-93370",
-    storageBucket: "talent-market-93370.firebasestorage.app",
-    messagingSenderId: "661289500580",
-    appId: "1:661289500580:web:780acf647461b28bd64b31",
-    measurementId: "G-VNK4VDLV4G"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// 메인 로직
 const grid = document.getElementById('grid');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const sortSelect = document.getElementById('sort-select');
 
+// 현재 상태 변수
 let currentCategory = 'all';
 let currentSort = 'newest';
-let firebaseClicks = {}; 
 
-fetchClickData();
+// 초기 렌더링
+updateGrid();
 
-// 필터 버튼 이벤트
+// 1. 카테고리 필터 버튼 클릭 이벤트
 filterBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
+        // 버튼 활성화 스타일 변경
         filterBtns.forEach(b => b.classList.remove('active'));
         e.target.classList.add('active');
+        
+        // 상태 업데이트 및 그리드 갱신
         currentCategory = e.target.getAttribute('data-filter');
         updateGrid();
     });
 });
 
-// 정렬 옵션 이벤트
+// 2. 정렬 선택 이벤트
 sortSelect.addEventListener('change', (e) => {
     currentSort = e.target.value;
     updateGrid();
 });
 
-// [읽기] 클릭 데이터 불러오기
-async function fetchClickData() {
-    try {
-        const querySnapshot = await getDocs(collection(db, "product_clicks"));
-        firebaseClicks = {}; 
-        
-        querySnapshot.forEach((doc) => {
-            firebaseClicks[doc.id] = doc.data().count;
-        });
-
-        updateGrid();
-    } catch (error) {
-        console.error("데이터 불러오기 실패:", error);
-    }
-}
-
-// [쓰기] 클릭 수 증가 (내부 집계용)
-async function recordClick(productId) {
-    const docRef = doc(db, "product_clicks", String(productId));
-    
-    try {
-        await setDoc(docRef, { count: increment(1) }, { merge: true });
-        
-        // 클릭 즉시 내부 데이터 반영 (화면 표시는 안 함)
-        firebaseClicks[productId] = (firebaseClicks[productId] || 0) + 1;
-        
-    } catch (error) {
-        console.error("클릭 저장 실패:", error);
-    }
-}
-
-// 총 클릭수 계산 (정렬용)
-function getTotalClicks(product) {
-    const serverCount = firebaseClicks[product.id] || 0;
-    return (product.clickCount || 0) + serverCount;
-}
-
-// 화면 그리기
+// 통합 렌더링 함수
 function updateGrid() {
     grid.innerHTML = '';
 
+    // A. 필터링 (카테고리)
     let filteredData = currentCategory === 'all' 
         ? [...productData] 
         : productData.filter(item => item.category === currentCategory);
 
-    // 정렬 로직 (인기순은 여전히 작동함)
+    // B. 정렬 로직 (인기순 제거됨)
     switch (currentSort) {
         case 'newest':
+            // ID 내림차순 (높은 ID가 최신)
             filteredData.sort((a, b) => b.id - a.id);
             break;
-        case 'popular':
-            filteredData.sort((a, b) => getTotalClicks(b) - getTotalClicks(a));
-            break;
         case 'low-price':
+            // 가격 오름차순
             filteredData.sort((a, b) => a.price - b.price);
             break;
         case 'high-price':
+            // 가격 내림차순
             filteredData.sort((a, b) => b.price - a.price);
             break;
         default:
+            // 기본: ID 내림차순
             filteredData.sort((a, b) => b.id - a.id);
     }
 
+    // C. 결과 없음 처리
     if (filteredData.length === 0) {
         grid.innerHTML = '<p style="grid-column:1/-1; padding:4rem 0; text-align:center; color:#888;">준비된 상품이 없습니다.</p>';
         return;
     }
 
+    // D. 카드 생성 및 출력
     filteredData.forEach(product => {
         const card = document.createElement('a');
         card.href = product.link;
         card.target = "_blank";
         card.className = 'card';
-        
-        // 클릭 시 집계는 계속 함
-        card.addEventListener('click', () => recordClick(product.id));
 
         card.innerHTML = `
             <div class="img-box">
