@@ -1,3 +1,13 @@
+/* ✨ 스크롤바 숨기기 (기능은 유지됨) */
+::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
 /* 기본 설정 */
 :root {
     --bg-color: #ffffff;
@@ -294,4 +304,5 @@ footer {
     .img-box img { padding: 15px; }
     .info-box h3 { font-size: 0.9rem; }
     .info-box .price { font-size: 0.85rem; }
+
 }
